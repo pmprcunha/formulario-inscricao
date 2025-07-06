@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inscrição de Aluno</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+  <div class="col-lg-10 mx-auto bg-white p-4 shadow-sm rounded-3">
+    <h2 class="mb-4 text-center">Formulário de Inscrição – Época 2024/2025</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, msg in messages %}
+          <div class="alert alert-{{category}}">{{ msg }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="post" novalidate>
+      <!-- Nome -->
+      <div class="mb-3">
+        <label class="form-label">Nome completo</label>
+        <input type="text" name="nome" class="form-control" required />
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" required />
+      </div>
+
+      <!-- Contacto -->
+      <div class="mb-3">
+        <label class="form-label">Contacto (telemóvel)</label>
+        <input type="tel" name="contacto" class="form-control" required />
+      </div>
+
+      <!-- Treinos / semana -->
+      <div class="mb-3">
+        <label class="form-label">Número de treinos por semana</label>
+        <input type="number" name="treinos_semana" class="form-control" min="1" max="7" value="2" />
+      </div>
+
+      <!-- Tipo de treino -->
+      <div class="mb-4">
+        <label class="form-label">Opções de treino e mensalidades (época 2024/2025)</label>
+        <div class="table-responsive mb-3">
+          <table class="table table-bordered text-center">
+            <thead class="" style="background-color: #f1f1f1;">
+              <tr>
+                <th>Frequência</th>
+                <th>Mensalidade Normal</th>
+                <th>Mensalidade<br>Competição<br><small>c/ The Code</small></th>
+                <th>Mensalidade<br>Competição<br><small>s/ The Code</small></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1x por semana (Peak)</td>
+                <td>62€</td>
+                <td>121€</td>
+                <td>95€</td>
+              </tr>
+              <tr>
+                <td>1x por semana (Off Peak)</td>
+                <td>54€</td>
+                <td>121€</td>
+                <td>95€</td>
+              </tr>
+              <tr>
+                <td>2x por semana (Peak)</td>
+                <td>111€</td>
+                <td>185€</td>
+                <td>160€</td>
+              </tr>
+              <tr>
+                <td>2x por semana (Off Peak)</td>
+                <td>96€</td>
+                <td>185€</td>
+                <td>160€</td>
+              </tr>
+              <tr style="background-color: #f9f9f9;">
+                <td>1x normal + 1x competição (com The Code)</td>
+                <td colspan="3"><strong>165€</strong> <span class="text-muted small">(com 10% desconto)</span></td>
+              </tr>
+              <tr style="background-color: #f9f9f9;">
+                <td>1x normal + 1x competição (sem The Code)</td>
+                <td colspan="3"><strong>141€</strong> <span class="text-muted small">(com 10% desconto)</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="small text-muted mb-2">
+          Todas as turmas são compostas por 4 participantes.<br>
+          <strong>Peak</strong>: até às 17h | <strong>Off Peak</strong>: a partir das 17h.
+        </div>
+        <div class="text-danger fw-semibold mb-3">
+          * Os valores apresentados podem sofrer alterações na próxima época.
+        </div>
+
+        <select name="tipo_treino" class="form-select" required>
+          <option disabled selected>Seleciona uma opção</option>
+          <option value="normal_peak_1x">1x semana - Normal (Peak - 62€)</option>
+          <option value="normal_offpeak_1x">1x semana - Normal (Off Peak - 54€)</option>
+          <option value="normal_peak_2x">2x semana - Normal (Peak - 111€)</option>
+          <option value="normal_offpeak_2x">2x semana - Normal (Off Peak - 96€)</option>
+          <option value="comp_thecode_1x">1x semana - Competição c/ The Code (121€)</option>
+          <option value="comp_semcode_1x">1x semana - Competição s/ The Code (95€)</option>
+          <option value="comp_thecode_2x">2x semana - Competição c/ The Code (185€)</option>
+          <option value="comp_semcode_2x">2x semana - Competição s/ The Code (160€)</option>
+          <option value="mixed_thecode">1x normal + 1x competição c/ The Code (165€)</option>
+          <option value="mixed_semcode">1x normal + 1x competição s/ The Code (141€)</option>
+        </select>
+      </div>
+
+      <!-- Género -->
+      <div class="mb-3">
+        <label class="form-label">Tipo de turma preferido</label>
+        <select name="genero_turma" class="form-select">
+          <option>Masculina</option>
+          <option>Feminina</option>
+          <option>Mista</option>
+          <option selected>Indiferente</option>
+        </select>
+      </div>
+
+      <!-- Disponibilidade -->
+      {% set dias = ['2a','3a','4a','5a','6a'] %}
+      <ul class="nav nav-tabs mb-3" id="diaTabs" role="tablist">
+        {% for dia in dias %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link {% if loop.index0 == 0 %}active{% endif %}"
+                  id="tab-{{dia}}"
+                  data-bs-toggle="tab"
+                  data-bs-target="#pane-{{dia}}"
+                  type="button" role="tab">
+            {{ dia[:-1] }}ª feira
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <div class="tab-content">
+        {% for dia in dias %}
+        <div class="tab-pane fade {% if loop.index0 == 0 %}show active{% endif %}" id="pane-{{dia}}" role="tabpanel">
+          <div id="rows-{{dia}}"></div>
+          <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="addRow('{{dia}}')">+ Adicionar intervalo</button>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-success px-5">Submeter</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  const dias = ['2a','3a','4a','5a','6a'];
+  dias.forEach(d => addRow(d));
+
+  function addRow(dia) {
+    const container = document.getElementById("rows-" + dia);
+    const div = document.createElement("div");
+    div.className = "row g-2 align-items-center mb-1";
+    div.innerHTML = `
+      <div class="col-auto">
+        <input type="time" name="${dia}_inicio" class="form-control" step="1800" required>
+      </div>
+      <div class="col-auto">&#8594;</div>
+      <div class="col-auto">
+        <input type="time" name="${dia}_fim" class="form-control" step="1800" required>
+      </div>
+      <div class="col-auto">
+        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">×</button>
+      </div>`;
+    container.appendChild(div);
+  }
+</script>
+</body>
+</html>
+
+
+
+
