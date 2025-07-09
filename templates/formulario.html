@@ -9,7 +9,7 @@
 <body class="bg-light">
 <div class="container py-5">
   <div class="col-lg-10 mx-auto bg-white p-4 shadow-sm rounded-3">
-    <h2 class="mb-4 text-center">Formulário de Inscrição – Época 2024/2025</h2>
+    <h2 class="mb-4 text-center">Formulário de Inscrição – Época 2025/2026</h2>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -171,17 +171,31 @@
     div.className = "row g-2 align-items-center mb-1";
     div.innerHTML = `
       <div class="col-auto">
-        <input type="time" name="${dia}_inicio" class="form-control" step="1800" required>
+        <input type="time" name="${dia}_inicio" class="form-control time-input" step="1800" required>
       </div>
       <div class="col-auto">&#8594;</div>
       <div class="col-auto">
-        <input type="time" name="${dia}_fim" class="form-control" step="1800" required>
+        <input type="time" name="${dia}_fim" class="form-control time-input" step="1800" required>
       </div>
       <div class="col-auto">
         <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">×</button>
       </div>`;
     container.appendChild(div);
   }
+
+  // Validação final para garantir que minutos sejam apenas 00 ou 30
+  document.querySelector("form").addEventListener("submit", function(e) {
+    const timeInputs = document.querySelectorAll(".time-input");
+    for (let input of timeInputs) {
+      const [h, m] = input.value.split(":").map(Number);
+      if (m !== 0 && m !== 30) {
+        alert("Por favor, insere apenas horários terminados em 00 ou 30 (ex: 14:00, 14:30).");
+        input.focus();
+        e.preventDefault();
+        return false;
+      }
+    }
+  });
 </script>
 </body>
 </html>
