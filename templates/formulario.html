@@ -41,7 +41,7 @@
       <!-- Treinos / semana -->
       <div class="mb-3">
         <label class="form-label">Número de treinos por semana</label>
-        <input type="number" name="treinos_semana" class="form-control" min="1" max="7" value="2" />
+        <input type="number" name="treinos_semana" id="treinos_semana" class="form-control" min="1" max="7" value="2" required />
       </div>
 
       <!-- Tipo de treino -->
@@ -102,18 +102,18 @@
           * Os valores apresentados podem sofrer alterações na próxima época.
         </div>
 
-        <select name="tipo_treino" class="form-select" required>
-          <option disabled selected>Seleciona uma opção</option>
-          <option value="normal_peak_1x">1x semana - Normal (Peak - 62€)</option>
-          <option value="normal_offpeak_1x">1x semana - Normal (Off Peak - 54€)</option>
-          <option value="normal_peak_2x">2x semana - Normal (Peak - 111€)</option>
-          <option value="normal_offpeak_2x">2x semana - Normal (Off Peak - 96€)</option>
-          <option value="comp_thecode_1x">1x semana - Competição c/ The Code (121€)</option>
-          <option value="comp_semcode_1x">1x semana - Competição s/ The Code (95€)</option>
-          <option value="comp_thecode_2x">2x semana - Competição c/ The Code (185€)</option>
-          <option value="comp_semcode_2x">2x semana - Competição s/ The Code (160€)</option>
-          <option value="mixed_thecode">1x normal + 1x competição c/ The Code (165€)</option>
-          <option value="mixed_semcode">1x normal + 1x competição s/ The Code (141€)</option>
+        <select name="tipo_treino" id="tipo_treino" class="form-select" required>
+            <option disabled selected>Seleciona uma opção</option>
+            <option value="normal_peak_1x" class="opt-1">1x semana - Normal (Peak - 62€)</option>
+            <option value="normal_offpeak_1x" class="opt-1">1x semana - Normal (Off Peak - 54€)</option>
+            <option value="normal_peak_2x" class="opt-2">2x semana - Normal (Peak - 111€)</option>
+            <option value="normal_offpeak_2x" class="opt-2">2x semana - Normal (Off Peak - 96€)</option>
+            <option value="comp_thecode_1x" class="opt-1">1x semana - Competição c/ The Code (121€)</option>
+            <option value="comp_semcode_1x" class="opt-1">1x semana - Competição s/ The Code (95€)</option>
+            <option value="comp_thecode_2x" class="opt-2">2x semana - Competição c/ The Code (185€)</option>
+            <option value="comp_semcode_2x" class="opt-2">2x semana - Competição s/ The Code (160€)</option>
+            <option value="mixed_thecode" class="opt-2">1x normal + 1x competição c/ The Code (165€)</option>
+            <option value="mixed_semcode" class="opt-2">1x normal + 1x competição s/ The Code (141€)</option>
         </select>
       </div>
 
@@ -197,6 +197,36 @@
     }
   });
 </script>
+
+<script>
+    const treinoInput = document.getElementById("treinos_semana");
+    const treinoSelect = document.getElementById("tipo_treino");
+  
+    function filtrarOpcoesTreino() {
+      const n = parseInt(treinoInput.value) || 0;
+  
+      [...treinoSelect.options].forEach(opt => {
+        if (opt.value === "") return; // ignora placeholder
+  
+        const classes = opt.className.split(" ");
+        const mostrar =
+          (n === 1 && classes.includes("opt-1")) ||
+          (n >= 2 && classes.includes("opt-2")) ||
+          classes.includes(`opt-${n}`);
+  
+        opt.style.display = mostrar ? "block" : "none";
+      });
+  
+      // Limpa seleção se atual opção estiver escondida
+      if (treinoSelect.selectedOptions.length && treinoSelect.selectedOptions[0].style.display === "none") {
+        treinoSelect.selectedIndex = 0;
+      }
+    }
+  
+    treinoInput.addEventListener("input", filtrarOpcoesTreino);
+    window.addEventListener("DOMContentLoaded", filtrarOpcoesTreino);
+  </script>  
+
 </body>
 </html>
 
