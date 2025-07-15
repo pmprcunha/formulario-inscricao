@@ -41,7 +41,13 @@
       <!-- Treinos / semana -->
       <div class="mb-3">
         <label class="form-label">Número de treinos por semana</label>
-        <input type="number" name="treinos_semana" id="treinos_semana" class="form-control" min="1" max="7" value="2" required />
+        <select name="treinos_semana" id="treinos_semana" class="form-select" required>
+          <option disabled selected value="">Seleciona o nº de treinos por semana</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
       </div>
 
       <!-- Tipo de treino -->
@@ -49,7 +55,7 @@
         <label class="form-label">Opções de treino e mensalidades (época 2024/2025)</label>
         <div class="table-responsive mb-3">
           <table class="table table-bordered text-center">
-            <thead class="" style="background-color: #f1f1f1;">
+            <thead style="background-color: #f1f1f1;">
               <tr>
                 <th>Frequência</th>
                 <th>Mensalidade Normal</th>
@@ -93,38 +99,38 @@
             </tbody>
           </table>
         </div>
-
         <div class="small text-muted mb-2">
           Todas as turmas são compostas por 4 participantes.<br>
-          <strong>Peak</strong>: a partir das 17h | <strong>Off Peak</strong>: até às 17h.
+          <strong>Peak</strong>: até às 17h | <strong>Off Peak</strong>: a partir das 17h.
         </div>
         <div class="text-danger fw-semibold mb-3">
           * Os valores apresentados podem sofrer alterações na próxima época.
         </div>
 
         <select name="tipo_treino" id="tipo_treino" class="form-select" required>
-            <option disabled selected>Seleciona uma opção</option>
-            <option value="normal_peak_1x" class="opt-1">1x semana - Normal (Peak - 62€)</option>
-            <option value="normal_offpeak_1x" class="opt-1">1x semana - Normal (Off Peak - 54€)</option>
-            <option value="normal_peak_2x" class="opt-2">2x semana - Normal (Peak - 111€)</option>
-            <option value="normal_offpeak_2x" class="opt-2">2x semana - Normal (Off Peak - 96€)</option>
-            <option value="comp_thecode_1x" class="opt-1">1x semana - Competição c/ The Code (121€)</option>
-            <option value="comp_semcode_1x" class="opt-1">1x semana - Competição s/ The Code (95€)</option>
-            <option value="comp_thecode_2x" class="opt-2">2x semana - Competição c/ The Code (185€)</option>
-            <option value="comp_semcode_2x" class="opt-2">2x semana - Competição s/ The Code (160€)</option>
-            <option value="mixed_thecode" class="opt-2">1x normal + 1x competição c/ The Code (165€)</option>
-            <option value="mixed_semcode" class="opt-2">1x normal + 1x competição s/ The Code (141€)</option>
+          <option disabled selected value="">Seleciona uma opção</option>
+          <option value="normal_peak_1x" class="opt-1">1x semana - Normal (Peak - 62€)</option>
+          <option value="normal_offpeak_1x" class="opt-1">1x semana - Normal (Off Peak - 54€)</option>
+          <option value="normal_peak_2x" class="opt-2">2x semana - Normal (Peak - 111€)</option>
+          <option value="normal_offpeak_2x" class="opt-2">2x semana - Normal (Off Peak - 96€)</option>
+          <option value="comp_thecode_1x" class="opt-1">1x semana - Competição c/ The Code (121€)</option>
+          <option value="comp_semcode_1x" class="opt-1">1x semana - Competição s/ The Code (95€)</option>
+          <option value="comp_thecode_2x" class="opt-2">2x semana - Competição c/ The Code (185€)</option>
+          <option value="comp_semcode_2x" class="opt-2">2x semana - Competição s/ The Code (160€)</option>
+          <option value="mixed_thecode" class="opt-2">1x normal + 1x competição c/ The Code (165€)</option>
+          <option value="mixed_semcode" class="opt-2">1x normal + 1x competição s/ The Code (141€)</option>
         </select>
       </div>
 
       <!-- Género -->
       <div class="mb-3">
         <label class="form-label">Tipo de turma preferido</label>
-        <select name="genero_turma" class="form-select">
+        <select name="genero_turma" class="form-select" required>
+          <option disabled selected value="">Seleciona o tipo de turma</option>
           <option>Masculina</option>
           <option>Feminina</option>
           <option>Mista</option>
-          <option selected>Indiferente</option>
+          <option>Indiferente</option>
         </select>
       </div>
 
@@ -171,11 +177,11 @@
     div.className = "row g-2 align-items-center mb-1";
     div.innerHTML = `
       <div class="col-auto">
-        <input type="time" name="${dia}_inicio" class="form-control time-input" step="1800" required>
+        <input type="time" name="${dia}_inicio" class="form-control" step="1800" required>
       </div>
       <div class="col-auto">&#8594;</div>
       <div class="col-auto">
-        <input type="time" name="${dia}_fim" class="form-control time-input" step="1800" required>
+        <input type="time" name="${dia}_fim" class="form-control" step="1800" required>
       </div>
       <div class="col-auto">
         <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">×</button>
@@ -183,52 +189,32 @@
     container.appendChild(div);
   }
 
-  // Validação final para garantir que minutos sejam apenas 00 ou 30
-  document.querySelector("form").addEventListener("submit", function(e) {
-    const timeInputs = document.querySelectorAll(".time-input");
-    for (let input of timeInputs) {
-      const [h, m] = input.value.split(":").map(Number);
-      if (m !== 0 && m !== 30) {
-        alert("Por favor, insere apenas horários terminados em 00 ou 30 (ex: 14:00, 14:30).");
-        input.focus();
-        e.preventDefault();
-        return false;
-      }
+  // Lógica para ocultar opções de treino
+  const treinoInput = document.getElementById("treinos_semana");
+  const treinoSelect = document.getElementById("tipo_treino");
+
+  function filtrarOpcoesTreino() {
+    const n = parseInt(treinoInput.value) || 0;
+    [...treinoSelect.options].forEach(opt => {
+      if (opt.value === "") return;
+      const mostrar =
+        (n === 1 && opt.classList.contains("opt-1")) ||
+        (n >= 2 && opt.classList.contains("opt-2"));
+      opt.style.display = mostrar ? "block" : "none";
+    });
+
+    if (treinoSelect.selectedOptions.length &&
+        treinoSelect.selectedOptions[0].style.display === "none") {
+      treinoSelect.selectedIndex = 0;
     }
-  });
+  }
+
+  treinoInput.addEventListener("change", filtrarOpcoesTreino);
+  window.addEventListener("DOMContentLoaded", filtrarOpcoesTreino);
 </script>
-
-<script>
-    const treinoInput = document.getElementById("treinos_semana");
-    const treinoSelect = document.getElementById("tipo_treino");
-  
-    function filtrarOpcoesTreino() {
-      const n = parseInt(treinoInput.value) || 0;
-  
-      [...treinoSelect.options].forEach(opt => {
-        if (opt.value === "") return; // ignora placeholder
-  
-        const classes = opt.className.split(" ");
-        const mostrar =
-          (n === 1 && classes.includes("opt-1")) ||
-          (n >= 2 && classes.includes("opt-2")) ||
-          classes.includes(`opt-${n}`);
-  
-        opt.style.display = mostrar ? "block" : "none";
-      });
-  
-      // Limpa seleção se atual opção estiver escondida
-      if (treinoSelect.selectedOptions.length && treinoSelect.selectedOptions[0].style.display === "none") {
-        treinoSelect.selectedIndex = 0;
-      }
-    }
-  
-    treinoInput.addEventListener("input", filtrarOpcoesTreino);
-    window.addEventListener("DOMContentLoaded", filtrarOpcoesTreino);
-  </script>  
-
 </body>
 </html>
+
 
 
 
