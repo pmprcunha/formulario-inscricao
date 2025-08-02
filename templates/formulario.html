@@ -22,25 +22,25 @@
     <form method="post" novalidate>
       <!-- Nome -->
       <div class="mb-3">
-        <label class="form-label">Nome completo</label>
-        <input type="text" name="nome" class="form-control" required />
+        <label class="form-label" for="nome">Nome completo</label>
+        <input type="text" name="nome" id="nome" class="form-control" required />
       </div>
 
       <!-- Email -->
       <div class="mb-3">
-        <label class="form-label">Email</label>
-        <input type="email" name="email" class="form-control" required />
+        <label class="form-label" for="email">Email</label>
+        <input type="email" name="email" id="email" class="form-control" required />
       </div>
 
       <!-- Contacto -->
       <div class="mb-3">
-        <label class="form-label">Contacto (telemóvel)</label>
-        <input type="tel" name="contacto" class="form-control" required />
+        <label class="form-label" for="contacto">Contacto (telemóvel)</label>
+        <input type="tel" name="contacto" id="contacto" class="form-control" required />
       </div>
 
       <!-- Treinos / semana -->
       <div class="mb-3">
-        <label class="form-label">Número de treinos por semana</label>
+        <label class="form-label" for="treinos_semana">Número de treinos por semana</label>
         <select name="treinos_semana" id="treinos_semana" class="form-select" required>
           <option disabled selected value="">Seleciona o nº de treinos por semana</option>
           <option value="1">1</option>
@@ -52,49 +52,49 @@
 
       <!-- Tipo de treino -->
       <div class="mb-4">
-        <label class="form-label">Opções de treino e mensalidades (época 2024/2025)</label>
+        <label class="form-label">Opções de treino e mensalidades</label>
         <div class="table-responsive mb-3">
           <table class="table table-bordered text-center">
             <thead style="background-color: #f1f1f1;">
               <tr>
                 <th>Frequência</th>
                 <th>Mensalidade Normal</th>
-                <th>Mensalidade<br>Competição<br><small>c/ The Code</small></th>
-                <th>Mensalidade<br>Competição<br><small>s/ The Code</small></th>
+                <th>Mensalidade Competição<br><small>c/ The Code</small></th>
+                <th>Mensalidade Competição<br><small>s/ The Code</small></th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>1x por semana (Peak)</td>
-                <td>62€</td>
-                <td>121€</td>
-                <td>95€</td>
+                <td>66€</td>
+                <td>129€</td>
+                <td>101€</td>
               </tr>
               <tr>
                 <td>1x por semana (Off Peak)</td>
-                <td>54€</td>
-                <td>121€</td>
-                <td>95€</td>
+                <td>58€</td>
+                <td>116€</td>
+                <td>91€</td>
               </tr>
               <tr>
                 <td>2x por semana (Peak)</td>
-                <td>111€</td>
-                <td>185€</td>
-                <td>160€</td>
+                <td>119€</td>
+                <td>200€</td>
+                <td>175€</td>
               </tr>
               <tr>
                 <td>2x por semana (Off Peak)</td>
-                <td>96€</td>
-                <td>185€</td>
-                <td>160€</td>
+                <td>127€</td>
+                <td>163€</td>
+                <td>163€</td>
               </tr>
               <tr style="background-color: #f9f9f9;">
                 <td>1x normal + 1x competição (com The Code)</td>
-                <td colspan="3"><strong>165€</strong> <span class="text-muted small">(com 10% desconto)</span></td>
+                <td colspan="3"><strong>Sob consulta</strong></td>
               </tr>
               <tr style="background-color: #f9f9f9;">
                 <td>1x normal + 1x competição (sem The Code)</td>
-                <td colspan="3"><strong>141€</strong> <span class="text-muted small">(com 10% desconto)</span></td>
+                <td colspan="3"><strong>Sob consulta</strong></td>
               </tr>
             </tbody>
           </table>
@@ -103,22 +103,26 @@
           Todas as turmas são compostas por 4 participantes.<br>
           <strong>Peak</strong>: a partir das 17h | <strong>Off Peak</strong>: até às 17h.
         </div>
-        <div class="text-danger fw-semibold mb-3">
-          * Os valores apresentados podem sofrer alterações na próxima época.
-        </div>
 
         <select name="tipo_treino" id="tipo_treino" class="form-select" required>
           <option disabled selected value="">Seleciona uma opção</option>
-          <option value="normal_peak_1x" class="opt-1">1x semana - Normal (Peak - 62€)</option>
-          <option value="normal_offpeak_1x" class="opt-1">1x semana - Normal (Off Peak - 54€)</option>
-          <option value="normal_peak_2x" class="opt-2">2x semana - Normal (Peak - 111€)</option>
-          <option value="normal_offpeak_2x" class="opt-2">2x semana - Normal (Off Peak - 96€)</option>
-          <option value="comp_thecode_1x" class="opt-1">1x semana - Competição c/ The Code (121€)</option>
-          <option value="comp_semcode_1x" class="opt-1">1x semana - Competição s/ The Code (95€)</option>
-          <option value="comp_thecode_2x" class="opt-2">2x semana - Competição c/ The Code (185€)</option>
-          <option value="comp_semcode_2x" class="opt-2">2x semana - Competição s/ The Code (160€)</option>
-          <option value="mixed_thecode" class="opt-2">1x normal + 1x competição c/ The Code (165€)</option>
-          <option value="mixed_semcode" class="opt-2">1x normal + 1x competição s/ The Code (141€)</option>
+          <option value="normal_peak_1x" class="opt-1">1x semana - Normal (Peak - 66€)</option>
+          <option value="normal_offpeak_1x" class="opt-1">1x semana - Normal (Off Peak - 58€)</option>
+          <option value="normal_peak_2x" class="opt-2">2x semana - Normal (Peak - 119€)</option>
+          <option value="normal_offpeak_2x" class="opt-2">2x semana - Normal (Off Peak - 127€)</option>
+
+          <option value="comp_thecode_peak_1x" class="opt-1">1x semana - Competição c/ The Code (Peak - 129€)</option>
+          <option value="comp_thecode_offpeak_1x" class="opt-1">1x semana - Competição c/ The Code (Off Peak - 116€)</option>
+          <option value="comp_thecode_peak_2x" class="opt-2">2x semana - Competição c/ The Code (Peak - 200€)</option>
+          <option value="comp_thecode_offpeak_2x" class="opt-2">2x semana - Competição c/ The Code (Off Peak - 163€)</option>
+
+          <option value="comp_semcode_peak_1x" class="opt-1">1x semana - Competição s/ The Code (Peak - 101€)</option>
+          <option value="comp_semcode_offpeak_1x" class="opt-1">1x semana - Competição s/ The Code (Off Peak - 91€)</option>
+          <option value="comp_semcode_peak_2x" class="opt-2">2x semana - Competição s/ The Code (Peak - 175€)</option>
+          <option value="comp_semcode_offpeak_2x" class="opt-2">2x semana - Competição s/ The Code (Off Peak - 163€)</option>
+
+          <option value="mixed_thecode" class="opt-2">1x normal + 1x competição c/ The Code (Sob consulta)</option>
+          <option value="mixed_semcode" class="opt-2">1x normal + 1x competição s/ The Code (Sob consulta)</option>
         </select>
       </div>
 
@@ -135,6 +139,13 @@
       </div>
 
       <!-- Disponibilidade -->
+      <hr class="my-4">
+      <h5 class="mb-3">Disponibilidade para treinos</h5>
+      <div class="alert alert-info small">
+        Indica <strong>todos os horários</strong> em que estás disponível para treinar, para <strong>cada dia da semana</strong> (podes adicionar vários por dia/semana).<br>
+        Exemplo: se podes treinar na 2ª feira das 17h às 18h e 4ª feira das 20h às 21h, adiciona os dois intervalos. 
+      </div>
+
       {% set dias = ['2a','3a','4a','5a','6a'] %}
       <ul class="nav nav-tabs mb-3" id="diaTabs" role="tablist">
         {% for dia in dias %}
@@ -154,7 +165,9 @@
         {% for dia in dias %}
         <div class="tab-pane fade {% if loop.index0 == 0 %}show active{% endif %}" id="pane-{{dia}}" role="tabpanel">
           <div id="rows-{{dia}}"></div>
-          <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="addRow('{{dia}}')">+ Adicionar intervalo</button>
+          <button type="button" class="btn btn-outline-primary btn-sm mt-2" onclick="addRow('{{dia}}')">
+            + Adicionar intervalo neste dia
+          </button>
         </div>
         {% endfor %}
       </div>
@@ -184,12 +197,11 @@
         <input type="time" name="${dia}_fim" class="form-control" step="1800" required>
       </div>
       <div class="col-auto">
-        <button type="button" class="btn btn-danger btn-sm" onclick="this.parentNode.parentNode.remove()">×</button>
+        <button type="button" class="btn btn-danger btn-sm" onclick="this.closest('.row').remove()">×</button>
       </div>`;
     container.appendChild(div);
   }
 
-  // Lógica para ocultar opções de treino
   const treinoInput = document.getElementById("treinos_semana");
   const treinoSelect = document.getElementById("tipo_treino");
 
@@ -214,6 +226,7 @@
 </script>
 </body>
 </html>
+
 
 
 
