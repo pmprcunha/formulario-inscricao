@@ -179,6 +179,9 @@
       </div>
 
       <div class="text-center mt-4">
+        <div id="form-alert" class="alert alert-danger d-none" role="alert">
+          Por favor, preenche todos os campos obrigatórios antes de submeter.
+        </div>
         <button type="submit" class="btn btn-success px-5">Submeter</button>
       </div>
     </form>
@@ -229,6 +232,29 @@
 
   treinoInput.addEventListener("change", filtrarOpcoesTreino);
   window.addEventListener("DOMContentLoaded", filtrarOpcoesTreino);
+</script>
+<script>
+    const form = document.querySelector("form");
+    const alertBox = document.getElementById("form-alert");
+  
+    form.addEventListener("submit", function (event) {
+      alertBox.classList.add("d-none");  // esconder alerta, por defeito
+  
+      const requiredFields = form.querySelectorAll("[required]");
+      let valid = true;
+  
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          valid = false;
+        }
+      });
+  
+      if (!valid) {
+        event.preventDefault();
+        alertBox.classList.remove("d-none");
+        alertBox.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
 </script>
 </body>
 </html>
